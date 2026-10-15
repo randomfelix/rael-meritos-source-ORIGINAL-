@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f06b2b">
+  <title>R.A.E.L. Méritos</title>
+  <link rel="icon" href="./rael-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./member.css">
+</head>
+<body data-mode="site">
+  <div class="auth-loading" id="authLoading" role="status" aria-live="polite"><span class="loading-spinner"></span><strong>Verificando login</strong><small>Conectando à sua conta R.A.E.L.</small></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="R.A.E.L. Méritos"><span class="brand-mark">R</span><span><strong>R.A.E.L.</strong><small>MÉRITOS</small></span></a>
+      <div class="top-actions hidden" id="topActions">
+        <button class="icon-button menu-trigger" id="menuButton" aria-label="Abrir menu de navegação" aria-controls="navigationSheet" aria-expanded="false" title="Menu"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+        <button class="icon-button" id="notificationsButton" aria-label="Notificações" title="Notificações"><svg viewBox="0 0 24 24"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><i id="notificationDot" class="notification-dot hidden"></i></button>
+        <button class="icon-button people-icon" id="peopleButton" aria-label="Pessoas" title="Pessoas"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M2.8 19c.5-3.2 2.6-5 6.2-5s5.7 1.8 6.2 5M16 5.2a3 3 0 0 1 0 5.7M17 14.3c2.4.5 3.8 2 4.2 4.7"/></svg></button>
+      </div>
+    </header>
+
+    <main class="page-wrap">
+      <section class="auth-card" id="authPanel">
+        <div class="eyebrow">COMUNIDADE R.A.E.L.</div>
+        <h1 id="authTitle">Entre na sua conta</h1>
+        <p class="muted" id="authDescription">Acompanhe seus méritos e as novidades da comunidade.</p>
+        <div class="auth-switch"><button class="selected" data-auth-mode="login">Entrar</button><button data-auth-mode="register">Criar conta</button></div>
+        <form id="authForm" class="stack-form">
+          <label>Nome de usuário<input id="usernameInput" name="username" minlength="3" maxlength="24" autocomplete="username" placeholder="SeuNomeNaComunidade" required></label>
+          <p class="inline-warning" id="usernameWarning">Use seu nome de usuário real na comunidade. O nome não poderá ser alterado depois do cadastro; use 3 a 24 caracteres, sem espaços ou acentos.</p>
+          <label>Senha<input id="passwordInput" name="password" type="password" minlength="8" autocomplete="current-password" placeholder="Mínimo de 8 caracteres" required></label>
+          <label id="confirmPasswordLabel" class="hidden">Confirmar senha<input id="confirmPasswordInput" name="confirmPassword" type="password" minlength="8" autocomplete="new-password"></label>
+          <button class="primary-button" id="authSubmit" type="submit">Entrar</button>
+          <p class="form-error" id="authError" role="alert"></p>
+        </form>
+        <p class="fine-print">Ao continuar, você concorda em usar o sistema de acordo com as regras da comunidade.</p>
+      </section>
+
+      <section class="pending-card hidden pending-editor-card" id="pendingPanel">
+        <div class="pending-symbol"><span></span></div>
+        <div class="eyebrow">CADASTRO RECEBIDO</div>
+        <h1>Seu acesso está pendente</h1>
+        <p>Seu cadastro está aguardando a aprovação de um administrador.</p>
+        <div class="pending-customize-note">Enquanto isso, aproveite e dê uma personalizada no seu perfil. Se o cadastro for aprovado, tudo será aplicado automaticamente; se for suspenso, o rascunho será descartado.</div>
+        <form id="pendingProfileForm" class="stack-form pending-profile-form">
+          <div class="profile-upload-row"><img id="pendingPhotoPreview" src="./avatar-default.svg" alt="Prévia da foto"><label class="field-label">Foto de perfil<input class="field-input" id="pendingPhotoFile" type="file" accept="image/*"><small class="muted">Selecione na galeria ou nos arquivos do computador.</small></label></div>
+          <label class="field-label">Bio<textarea id="pendingBio" class="field-textarea" maxlength="180" rows="3" placeholder="Conte um pouco sobre você"></textarea></label>
+          <div class="profile-upload-row banner-upload-row"><img id="pendingBannerPreview" class="banner-upload-preview" src="./avatar-default.svg" alt="Prévia do banner"><label class="field-label">Banner<input class="field-input" id="pendingBannerFile" type="file" accept="image/*"><small class="muted">Opcional. A imagem será comprimida antes de salvar.</small></label></div>
+          <p class="form-error" id="pendingProfileError"></p><button class="primary-button" type="submit">Salvar personalização</button>
+        </form>
+        <p class="muted">Se estiver demorando, entre em contato com a equipe na comunidade do WhatsApp.</p>
+        <button class="secondary-button" id="pendingLogout">Sair da conta</button>
+      </section>
+
+      <section class="banned-card hidden" id="bannedPanel">
+        <div class="eyebrow">ACESSO INDISPONÍVEL</div><h1>Esta conta está suspensa</h1>
+        <p>Entre em contato com a administração da comunidade para entender a situação.</p>
+        <button class="secondary-button" id="bannedLogout">Sair da conta</button>
+      </section>
+
+      <section class="dashboard hidden" id="dashboard">
+        <div class="welcome-row"><div><p class="eyebrow" id="welcomeEyebrow">SUA CONTA</p><h1 id="welcomeTitle">Olá!</h1><p class="muted" id="welcomeSubtitle">Seu saldo está atualizado.</p></div><button class="profile-chip" id="myProfileButton"><img id="miniAvatar" alt="" src="./avatar-default.svg"><span id="miniUsername">Perfil</span><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button></div>
+        <section class="content-screen" id="screenContent" aria-live="polite"></section>
+      </section>
+    </main>
+    <footer class="site-footer hidden" id="siteFooter">R.A.E.L. Méritos <span>·</span> <span id="footerVersion">v1.1.2</span></footer>
+  </div>
+
+<div class="navigation-backdrop" id="navigationOverlay" aria-hidden="true"></div>
+        <section class="navigation-sheet" id="navigationSheet" aria-label="Menu de navegação" aria-hidden="true">
+          <header class="navigation-sheet-head"><div><p class="eyebrow">R.A.E.L. MÉRITOS</p><h2>Navegação</h2></div><button class="icon-button" id="navigationClose" aria-label="Fechar menu"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+          <nav class="navigation-options" aria-label="Seções">
+            <button class="nav-button active" data-view="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>Início</span></button>
+            <button class="nav-button" data-view="payments"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><span>Movimentações</span></button>
+            <button class="nav-button" data-view="store"><svg viewBox="0 0 24 24"><path d="M4 8h16l-1 12H5L4 8zM8 8a4 4 0 0 1 8 0"/><path d="M9 12v2M15 12v2"/></svg><span>Loja de méritos</span></button>
+            <button class="nav-button" data-view="analytics"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h17M8 15v-4M13 15V7M18 15V3"/></svg><span>Análises</span></button>
+            <button class="nav-button" data-view="contact"><svg viewBox="0 0 24 24"><path d="M4 4h16v13H9l-5 4z"/><path d="M8 9h8M8 13h5"/></svg><span>Contato</span></button>
+            <button class="nav-button" data-view="other"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/></svg><span>Outros</span></button>
+            <button class="nav-button" data-view="release-notes"><svg viewBox="0 0 24 24"><path d="M5 3h14v18l-7-4-7 4zM8 8h8M8 12h8"/></svg><span>Notas da versão</span></button>
+          </nav>
+          <footer class="navigation-sheet-footer"><strong>R.A.E.L. Méritos</strong><span>v1.1.2</span></footer>
+        </section>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop" role="presentation">
+    <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <header class="modal-header"><div><p class="eyebrow" id="modalKicker">R.A.E.L.</p><h2 id="modalTitle">Detalhes</h2></div><button class="icon-button modal-close" id="modalClose" aria-label="Fechar"><svg viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></svg></button></header>
+      <div class="modal-content" id="modalContent"></div>
+      <div class="modal-footer" id="modalFooter"></div>
+    </section>
+  </div>
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script type="module" src="./member-app.js"></script>
+</body>
+</html>
